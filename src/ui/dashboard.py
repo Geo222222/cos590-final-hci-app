@@ -19,8 +19,11 @@ from src.risk.recommendations import (
     counterfactual_suggestion,
 )
 from src.eval.logging import log_event
+from src.ui.market import render_market_data_chart
 
 def render_dashboard(state: dict):
+    render_market_data_chart()
+    st.divider()
     n_assets = state["n_assets"]
     n_periods = state["n_periods"]
     seed = state["seed"]

@@ -92,3 +92,12 @@ def get_market_data(n_assets: int, n_periods: int, seed: int = 7):
         dates = pd.date_range(end=pd.Timestamp.now(), periods=n_periods, freq='H')
         return rng.normal(0.0003, 0.01, size=(n_periods, n_assets)), dates
 
+def get_full_market_data():
+    app_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    csv_path = os.path.join(app_root, "data/eth_usdt_1h.csv")
+    df = pd.read_csv(csv_path, header=[0, 1], index_col=0, parse_dates=True)
+    df.columns = df.columns.droplevel(0)
+    df.reset_index(inplace=True)
+    df['Datetime'] = pd.to_datetime(df['Datetime'])
+    return df
+
