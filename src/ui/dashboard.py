@@ -22,6 +22,16 @@ from src.eval.logging import log_event
 from src.ui.market import render_market_data_chart
 
 def render_dashboard(state: dict):
+    """Renders the main dashboard UI for the HCI experiment.
+
+    This function orchestrates the entire user-facing interface for a single trial,
+    including market data visualization, risk metric calculation, recommendation
+    display, and user decision logging.
+
+    Args:
+        state: A dictionary containing the current application and condition state,
+               including weights, seed, and experimental flags.
+    """
     render_market_data_chart()
     st.divider()
     n_assets = state["n_assets"]

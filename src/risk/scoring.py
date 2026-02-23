@@ -2,9 +2,21 @@ import numpy as np
 from src.utils.math_utils import clamp01
 
 def risk_score(hhi: float, semidev: float, mdd: float, var: float, es: float) -> float:
-    """
-    Simple fixed scoring (controlled logic): normalize sub-metrics into [0,1] and combine.
-    This is intentionally not a “new financial model” — it is a fixed rule-based score for HCI testing.
+    """Computes a normalized risk score from several underlying risk metrics.
+
+    The function normalizes each metric to a [0, 1] scale, where 1 is higher risk,
+    and combines them using a weighted average. This is a fixed rule-based score
+    designed for controlled HCI experiments.
+
+    Args:
+        hhi: Herfindahl-Hirschman Index (concentration).
+        semidev: Downside semideviation.
+        mdd: Maximum drawdown.
+        var: Value-at-Risk.
+        es: Expected Shortfall.
+
+    Returns:
+        A final, clamped risk score between 0.0 and 1.0.
     """
     hhi_n = clamp01((hhi - 0.2) / (0.6 - 0.2))
     sd_n = clamp01(semidev / 0.03)
